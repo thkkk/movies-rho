@@ -1,0 +1,60 @@
+{% extends "rho/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="portfolio-block block-intro">
+    <br> <br><br><br><br>
+    <div class="container">
+        <div class="avatar" style="text-align: center;">
+            <img src="{{ picture }}" alt="{{ movie.name }}"/>
+        </div>
+        <!--style="background-image:url(avatars/avatar.jpg)"-->
+        <div class="about-me">
+            <br>
+            <h1 style="text-align: center; text-shadow: 5px 5px 5px #d2df20">{{ movie.name }}</h1>
+            <h3 style="color: green;">介绍</h3>
+            <p>
+                <!-- Hello! I am <strong>John Smith</strong>. I work as interface and front end developer. I have passion for pixel perfect, minimal and easy to use interfaces. -->
+                {{ movie.intro|linebreaks }}
+            </p>
+            <div style="text-align: center;">
+                <a class="btn btn-outline-primary" role="button" href="/search/?typ=movie&keyword={{movie.name}}" style="margin: auto;">Search me</a>
+                <br><br><br><br>
+            </div>
+        </div>
+        
+        <section class="portfolio-block photography">
+            <div class="container">
+                <h4 style="color: green;">演员表</h4>
+                <div class="row no-gutters">
+                    {% for actor in actors %}
+                    <div class="col-md-6 col-lg-1 item zoom-on-hover">
+                        <a href="/actor/{{actor.id}}"><img class="img-fluid image" src="/static/rho/image/actor_{{actor.id}}.jpg" /></a>
+                        <br>
+                        <a href="/actor/{{actor.id}}"><p style="font-size: small;">{{actor.name}}</p></a>
+                    </div>
+                    <div>&nbsp; </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="block-heading" style="text-align: center;">
+                <h2 class="text-info">影评</h2>
+                <p style="color: grey;">Every film is a documentary.</p>
+            </div>
+            <div class="row justify-content-center">
+                {% for c in comment %}
+                <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                    <h4 style="color:orange">影评</h4>
+                    <p>{{ c.content }}</p>
+                    <br>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

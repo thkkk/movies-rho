@@ -1,0 +1,59 @@
+{% extends "rho/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="portfolio-block block-intro">
+    <br> <br><br><br><br>
+    <div class="container">
+        <div class="avatar" style="text-align: center;">
+            <img src="{{ photo }}" alt="{{ actor.name }}"/>
+        </div>
+        <!--style="background-image:url(avatars/avatar.jpg)"-->
+        <div class="about-me">
+            <br>
+            <h1 style="text-align: center; text-shadow: 5px 5px 5px #FF0000">{{ actor.name }}</h1>
+            <h2 style="color: green;">介绍</h2>
+            <p>
+                <!-- Hello! I am <strong>John Smith</strong>. I work as interface and front end developer. I have passion for pixel perfect, minimal and easy to use interfaces. -->
+                {{ actor.intro|linebreaks }}
+            </p>
+            <div style="text-align: center;">
+                <a class="btn btn-outline-primary" role="button" href="/search/?typ=actor&keyword={{actor.name}}" style="margin: auto;">Search me</a>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="portfolio-block photography">
+    <div class="container">
+        <h4 style="color: green;">参演电影</h4>
+        <div class="row no-gutters">
+            {% for mv in movies %}
+            <div class="col-md-6 col-lg-1 item zoom-on-hover">
+                <a href="/movie/{{mv.id}}"><img class="img-fluid image" src="/static/rho/image/{{mv.id}}.jpg" /></a>
+                <br>
+                <a href="/movie/{{mv.id}}"><p style="font-size: small;">{{mv.name}}</p></a>
+            </div>
+            <div>&nbsp; </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="portfolio-block photography">
+    <div class="container">
+        <h4 style="color: green;">合作演员</h4>
+        <div class="row no-gutters">
+            {% for x in related_actors %}
+            <div class="col-md-6 col-lg-1 item zoom-on-hover">
+                <a href="/actor/{{x.0.id}}"><img class="img-fluid image" src="/static/rho/image/actor_{{x.0.id}}.jpg" /></a>
+                <br>
+                <p style="font-size: small;"><a href="/actor/{{x.0.id}}">{{x.0.name}}</a> 合作次数:{{ x.1 }}</p>
+            </div>
+            <div>&nbsp; </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

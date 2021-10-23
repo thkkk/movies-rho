@@ -1,0 +1,143 @@
+{% extends "rho/base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if now_page == 1 %}
+<section class="clean-block slider dark">
+    <div class="container">
+        <!--div class="block-heading">
+            <h2 class="text-info">Slider</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div-->
+        <br> <br> <br> <br> <br>
+        <div data-ride="carousel" class="carousel slide" id="carousel-1">
+            <div role="listbox" class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="/movie/4">
+                    <img class="w-100 d-block" src="{% static 'rho/image/img1.png' %}" alt="Slide Image" />
+                    </a>
+                </div>
+                
+                <div class="carousel-item">
+                    <a href="/movie/268">
+                    <img class="w-100 d-block" src="{% static 'rho/image/img4.png' %}" alt="Slide Image" />
+                  </a>
+                </div>
+                
+                <div class="carousel-item">
+                    <a href="/movie/61">
+                    <img class="w-100 d-block" src="{% static 'rho/image/img3.png' %}" alt="Slide Image" />
+                    </a>
+                </div>
+            </div>
+            <div><a href="#carousel-1" role="button" data-slide="prev" class="carousel-control-prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a href="#carousel-1" role="button" data-slide="next" class="carousel-control-next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
+            <ol
+                class="carousel-indicators">
+                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-1" data-slide-to="1"></li>
+                <li data-target="#carousel-1" data-slide-to="2"></li>
+                </ol>
+        </div>
+    </div>
+</section>
+{% else %}
+    <br><br><br><br>
+{% endif %}
+
+<br><br>
+<div class="container">
+    <div class="block-heading">
+        <h2 class="text-info" style="text-align: center;">电影列表</h2>
+        <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+    </div>
+    <div class="row justify-content-center">
+        {% for mv in Set_movie %}
+        <div class="col-sm-6 col-lg-2">
+            <div class="card clean-card text-center">
+                <a href="movie/{{mv.id}}"><img class="card-img-top w-100 d-block" src="/static/rho/image/{{mv.id}}.jpg" /></a>
+                <div class="card-body info">
+                    <a href="movie/{{mv.id}}"><h5 class="card-title" >{{ mv.name }}</h5></a>
+                    <p class="card-text"></p> <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
+                </div>
+            </div>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row justify-content-center">   
+        <nav aria-label="Page navigation example">
+            <br> <br> <br> 
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+              
+                {% if pre %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{pre}}" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link"  aria-label="Previous" aria-disabled="true">
+                        <span aria-hidden="true" >&lt;</span>
+                    </a>
+                </li>
+                {% endif %}
+              
+              {% if pre2 %}
+                <li class="page-item disabled"><a class="page-link" >...</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{pre2}}">{{pre2}}</a></li>
+              {% endif %}
+              {% if pre1 %}
+                <li class="page-item"><a class="page-link" href="?page={{pre1}}">{{pre1}}</a></li>
+              {% endif %}
+
+              <li class="page-item active"><a class="page-link" aria-current="page" href="?page={{now_page}}">{{now_page}}</a></li>
+
+              {% if nxt1 %}
+                <li class="page-item"><a class="page-link" href="?page={{nxt1}}">{{nxt1}}</a></li>
+              {% endif %}
+              {% if nxt2 %}
+                <li class="page-item"><a class="page-link" href="?page={{nxt2}}">{{nxt2}}</a></li>
+                <li class="page-item disabled"><a class="page-link" >...</a></li>
+              {% endif %}
+
+              {% if nxt %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{nxt}}" aria-label="Next">
+                      <span aria-hidden="true">&gt;</span>
+                  </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                  <a class="page-link"  aria-label="Next" aria-disabled="true">
+                      <span aria-hidden="true" >&gt;</span>
+                  </a>
+              </li>
+              {% endif %}
+
+              <li class="page-item">
+                <a class="page-link" href="?page={{tot_page}}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+
+            <form class="form-inline mr-auto"  method="GET"> <!-- style="text-align:center;"-->
+                <div style="margin: auto;">
+                    总共{{tot_page}}页，跳转至
+                    <input type="text" style="border-radius: 5px; border: 2px solid ; width: 60px; height: 30px;" class="form-control" name="page" />
+                    页
+                </div>
+            </form>
+          </nav>
+    </div>    
+          
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static%}
+        <link rel="stylesheet" type="text/css" href="{% static 'rho/bootstrap.css'%}">
+        <!--link rel="stylesheet" type="text/css" href="{% static 'rho/bootstrap.min.css'%}"-->
+        <link rel="stylesheet" type="text/css" href="{% static 'rho/Navigation-with-Search.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'rho/smoothproducts.css'%}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+        <link rel="stylesheet" href="{% static 'rho/fonts/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'rho/fonts/simple-line-icons.min.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+        <meta charset="utf-8">
+    </head>
+    <body style="background-color:#ced6e0;">
+        
+        <script src="{% static 'rho/jquery-3.5.1.js'%}"></script>
+        <script src="{% static 'rho/bootstrap.bundle.js'%}"></script>
+        <!--script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script-->
+        <script src="{% static 'rho/bootstrap.js'%}"></script>
+        <script src="{% static 'rho/theme.js'%}"></script>
+        
+        <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-info clean-navbar" >
+            <div class="container">
+                <a class="navbar-brand logo" style="width: 70px;" href="/">
+                    &nbsp;
+                    <img height="60" width="60" src="{% static 'rho/logo.png' %}">
+                </a>
+                
+                <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+                    <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navcol-1">
+                    <nav class="navbar navbar-light navbar-expand-lg navigation-clean-search" style="border-radius: 20px; background-color: rgb(243, 241, 239);">
+                        <div class="container" >
+                            <a class="navbar-brand">Rho</a>
+                            <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                            <div class="collapse navbar-collapse" id="navcol-1"">
+                                <ul class="nav navbar-nav">
+                                    <li role="presentation" class="nav-item"></li>
+                                    <li role="presentation" class="nav-item"></li>
+                                    <li role="presentation" class="nav-item"></li>
+                                </ul>
+                                <form class="form-inline mr-auto" target="_self" method="GET" action="/search">
+                                    <div class="form-group">
+                                        <label for="search-field"><i class="fa fa-search"></i></label>
+                                        <!--div class="dropdown">
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink" class="btn btn-secondary dropdown-toggle" href="#" role="button">Dropdown </a>
+                                            <div role="menu" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a role="presentation" class="dropdown-item" href="#">搜电影</a>
+                                                <a role="presentation" class="dropdown-item" href="#">搜影人</a>
+                                                <a role="presentation" class="dropdown-item" href="#">搜影评</a>
+                                            </div>
+                                        </div-->
+                                        <div class="my-1" style="">
+                                            <!--label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label-->
+                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="border-radius: 10px; background-color: rgb(221, 200, 200);" name="typ">
+                                              <option selected value="movie" >搜电影...</option>
+                                              <option value="actor">搜影人</option>
+                                              <option value="comment">搜影评</option>
+                                            </select>
+                                        </div>
+                                        <input type="search" style="border-radius: 10px; border: 2px solid gray;" class="form-control " placeholder="Search" aria-label="Search" id="search-field" name="keyword" value="{{keyword}}"/>
+                                        &nbsp;
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>  <!--search-field-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                    <ul class="nav navbar-nav ml-auto">
+                        {% if Set_movie %}
+                            <li role="presentation" class="nav-item"><a class="nav-link active" href="/">影视信息页</a></li>
+                            <li role="presentation" class="nav-item"><a class="nav-link" href="/actor">影人信息页</a></li>
+                        {% elif Set_actor %}
+                            <li role="presentation" class="nav-item"><a class="nav-link" href="/">影视信息页</a></li>
+                            <li role="presentation" class="nav-item"><a class="nav-link active" href="/actor">影人信息页</a></li>
+                        {% else %}
+                            <li role="presentation" class="nav-item"><a class="nav-link" href="/">影视信息页</a></li>
+                            <li role="presentation" class="nav-item"><a class="nav-link" href="/actor">影人信息页</a></li>  
+                        {% endif %}
+                        <li role="presentation" class="nav-item"><a class="nav-link disabled" href="about-us.html" >About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+        
+        <br><br>
+        <footer class="page-footer" style="background-color:rgb(33, 37, 41); color: white;">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Get started</h5>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/actor">演员</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>猜你想看</h5>
+                        <ul>
+                            <li><a href="/movie/80">教父</a></li>
+                            <li><a href="/movie/10">这个杀手不太冷</a></li>
+                            <li><a href="/movie/27">让子弹飞</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>猜你想看</h5>
+                        <ul>
+                            <li><a href="/actor/11">莱昂纳多·迪卡普里奥</a></li>
+                            <li><a href="/actor/126">汤姆·汉克斯</a></li>
+                            <li><a href="/actor/413">罗伯特·德尼罗</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>评价最高</h5>
+                        <ol>
+                            <li><a href="/movie/4">肖申克的救赎</a></li>
+                            <li><a href="/movie/16">霸王别姬</a></li>
+                            <li><a href="/movie/14">阿甘正传</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright" style="text-align: center;">
+                <p>© 2020 Copyright</p>
+            </div>
+        </footer>
+    </body>
+</html>
